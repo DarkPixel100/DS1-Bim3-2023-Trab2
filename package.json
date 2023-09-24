@@ -1,0 +1,28 @@
+{
+  "name": "crud-trab-2",
+  "version": "1.0.0",
+  "description": "crud",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "DS1-Bim3-2023-Trab2"
+  },
+  "author": "DarkPixel100",
+  "license": "ISC",
+  "dependencies": {
+    "@handlebars/allow-prototype-access": "^1.0.5",
+    "bcrypt": "^5.1.1",
+    "body-parser": "^1.20.2",
+    "express": "^4.18.2",
+    "express-handlebars": "^7.1.2",
+    "express-session": "^1.17.3",
+    "handlebars": "^4.7.8",
+    "mysql2": "^3.6.1",
+    "path": "^0.12.7",
+    "req-flash": "^0.0.3",
+    "sequelize": "^6.33.0"
+  }
+}

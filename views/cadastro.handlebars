@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <title>Cadastro - Biblioteca</title>
+</head>
+
+<body>
+    <header style="background: rgb(10, 13, 21); text-align: center;">
+        <h1 style="color: rgb(237, 247, 255);">Biblioteca!</h1>
+    </header>
+    <main>
+        <h2>Cadastro:</h2>
+        <form action="/" method="POST">
+            <div class="col-md-4">
+                <label for="nome" class="form-label">Nome</label>
+                <input type="text" class="form-control" id="nome" placeholder="João da Silva" required>
+            </div>
+            <div class="col-md-4">
+                <label for="" class="form-label">Email</label>
+                <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelpId"
+                    placeholder="abc@mail.com">
+            </div>
+            <div class="col-md-4">
+                <label for="" class="form-label">Senha</label>
+                <input type="password" class="form-control" name="password" id="password" placeholder="@BcdeFg_Hi">
+            </div>
+            <button type="submit" class="btn btn-primary">Cadastrar</button>
+        </form>
+    </main>
+</body>
+
+</html>
