@@ -3,11 +3,21 @@ const helpers = require("./helpers/helpers");
 const path = require("path");
 const bodyParser = require("body-parser");
 const app = express();
-const session = require("express-session")
-const flash = require("req-flash");
+const session = require("express-session");
+const flash = require("connect-flash");
 const { sequelize, Sequelize } = require("./config/database");
-// app.use(cookieParser());
-app.use(session({ secret: "123" }));
+
+app.set("trust proxy", 1);
+app.use(
+  session({
+    name: "SuperSecretName",
+    secret: "123",
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: true, maxAge: 300000 },
+  })
+);
+
 app.use(flash());
 
 app.use(bodyParser.urlencoded({ extended: false }));

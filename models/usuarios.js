@@ -12,27 +12,28 @@ module.exports = (sequelize, DataTypes) => {
       },
       nome: {
         type: DataTypes.STRING,
+        allowNull: false,
+        unique: true,
       },
       email: {
         type: DataTypes.STRING,
+        allowNull: false,
+        unique: true,
       },
       password: {
         type: DataTypes.STRING,
+        allowNull: false,
+        set(value) {
+          this.setDataValue("password", bcrypt.hash(value, 10));
+        },
       },
     },
     { timestamps: false },
-    {
-      freezeTableName: true,
-      instanceMethods: {
-        generateHash(password) {
-          return bcrypt.hash(password, bcrypt.genSaltSync(10));
-        },
-        validPassword(password) {
-          return bcrypt.compare(password, this.password);
-        },
-      },
-    }
+    { freezeTableName: true }
   );
+  usuarios.prototype.validarSenha = function (password) {
+    return bcrypt.compare(password, this.password);
+  };
 
   return usuarios;
 };

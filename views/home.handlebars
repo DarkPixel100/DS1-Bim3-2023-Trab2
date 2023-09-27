@@ -15,6 +15,9 @@
 <body>
     <header style="background: rgb(10, 13, 21); text-align: center;">
         <h1>Biblioteca!</h1>
+        <form action="/logout" method="post">
+            <button type="submit" class="btn btn-primary">Logout</button>
+        </form>
     </header>
     <main>
         <h2>Alugue livros!</h2>
@@ -27,16 +30,21 @@
                         <th scope="col">Ano de Publi.</th>
                         <th scope="col">Editora</th>
                         <th scope="col">Quantidade</th>
+                        <th scope="col"></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="">
-                        <td scope="row">{{ a }}</td>
-                        <td scope="row">{{ a }}</td>
-                        <td scope="row">{{ a }}</td>
-                        <td scope="row">{{ a }}</td>
-                        <td scope="row">{{ a }}</td>
+                    {{#each Livros}}
+                    <tr class="livro">
+                        <td scope="row">{{ titulo }}</td>
+                        <td scope="row">{{ autores }}</td>
+                        <td scope="row">{{ ano }}</td>
+                        <td scope="row">{{ editora }}</td>
+                        <td scope="row">{{ qtde }}</td>
+                        {{#if qtde}}<td scope="row"><button type="submit" name="livroID" value="{{ id }}">Alugar</button>
+                        </td>{{/if}}
                     </tr>
+                    {{/each}}
                 </tbody>
             </table>
         </div>

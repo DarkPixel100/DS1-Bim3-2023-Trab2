@@ -1,16 +1,37 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
         integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    
+
     <title>Login - Biblioteca</title>
 </head>
+
 <body>
-    
+    <header style="background: rgb(10, 13, 21); text-align: center;">
+        <h1 style="color: rgb(237, 247, 255);">Biblioteca!</h1>
+    </header>
+    <main>
+        <h2>Login:</h2>
+        <form action="/login" method="POST">
+            <div class="col-md-4">
+                <label for="" class="form-label">Email</label>
+                <input type="email" class="form-control" name="email" id="email" aria-describedby="emailField" required>
+            </div>
+            <div class="col-md-4">
+                <label for="" class="form-label">Senha</label>
+                <input type="password" class="form-control" name="password" id="password" required>
+            </div>
+            <button type="submit" class="btn btn-primary ml-3">Login</button>
+            <br>
+            <a href="/cadastro" class="col-md-4">Ainda não tenho uma conta</a>
+        </form>
+    </main>
 </body>
+
 </html>

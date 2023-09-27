@@ -18,21 +18,21 @@
     </header>
     <main>
         <h2>Cadastro:</h2>
-        <form action="/" method="POST">
+        <form action="/cadastro" method="POST">
             <div class="col-md-4">
                 <label for="nome" class="form-label">Nome</label>
-                <input type="text" class="form-control" id="nome" placeholder="João da Silva" required>
+                <input type="text" class="form-control" name="nome" id="nome" placeholder="João da Silva" required>
             </div>
             <div class="col-md-4">
                 <label for="" class="form-label">Email</label>
-                <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelpId"
+                <input type="email" class="form-control" name="email" id="email" aria-describedby="emailField"
                     placeholder="abc@mail.com">
             </div>
             <div class="col-md-4">
                 <label for="" class="form-label">Senha</label>
                 <input type="password" class="form-control" name="password" id="password" placeholder="@BcdeFg_Hi">
             </div>
-            <button type="submit" class="btn btn-primary">Cadastrar</button>
+            <button type="submit" class="btn btn-primary ml-3">Cadastrar</button>
         </form>
     </main>
 </body>
