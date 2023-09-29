@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
         set(value) {
-          this.setDataValue("password", bcrypt.hash(value, 10));
+          this.setDataValue("password", bcrypt.hashSync(value, 10));
         },
       },
     },
@@ -32,7 +32,7 @@ module.exports = (sequelize, DataTypes) => {
     { freezeTableName: true }
   );
   usuarios.prototype.validarSenha = function (password) {
-    return bcrypt.compare(password, this.password);
+    return bcrypt.compareSync(password, this.password);
   };
 
   return usuarios;
