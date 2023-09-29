@@ -1,15 +1,16 @@
-const express = require("express")
-const router = express.Router()
-var myController = require("../controllers/mycontroller")
+const express = require("express");
+const router = express.Router();
+var viewController = require("../controllers/viewcontroller");
+var authController = require("../controllers/authcontroller");
 
+router.get("/", viewController.showHome);
+router.get("/login", viewController.showLogin);
+router.get("/cadastro", viewController.showCadastro);
 
-router.get("/", myController.showHome);
-router.post("/", myController.alugar);
+// router.post("/", viewController.alugar);
 
-router.get("/cadastro", myController.showCadastro);
-router.post("/cadastro", myController.criarUsuario);
-router.get("/login", myController.showLogin);
-router.post("/login", myController.attemptLogin);
-router.post("/logout", myController.logout);
+router.post("/cadastro", authController.criarUsuario);
+router.post("/login", authController.attemptLogin);
+router.post("/logout", authController.logout);
 
-module.exports = router
+module.exports = router;

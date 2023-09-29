@@ -1,39 +1,41 @@
 const express = require("express");
+const app = express();
 const helpers = require("./helpers/helpers");
 const path = require("path");
 const bodyParser = require("body-parser");
-const app = express();
-const session = require("express-session");
 const flash = require("connect-flash");
+const session = require("express-session");
+const SessionStore = require("express-session-sequelize")(session.Store);
+const appRoutes = require("./routes/approutes");
 const { sequelize, Sequelize } = require("./config/database");
-
-app.set("trust proxy", 1);
-app.use(
-  session({
-    name: "SuperSecretName",
-    secret: "123",
-    resave: false,
-    saveUninitialized: true,
-    cookie: { secure: true, maxAge: 300000 },
-  })
-);
 
 app.use(flash());
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-const appRoutes = require("./routes/approutes");
+const sequelizeSessionStore = new SessionStore({
+  db: sequelize,
+});
+
+app.set("trust proxy", 1);
+app.use(
+  session({
+    secret: "123",
+    store: sequelizeSessionStore,
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: "auto", maxAge: 300000 },
+  })
+);
 
 // handlebars configuration
 const handlebars = require("express-handlebars");
 const handlebars_mod = require("handlebars");
-
 const {
   allowInsecurePrototypeAccess,
 } = require("@handlebars/allow-prototype-access");
 const req = require("express/lib/request");
-
 app.engine(
   "handlebars",
   handlebars.engine({
@@ -43,6 +45,7 @@ app.engine(
   })
 );
 
+// sequelize configuration
 sequelize
   .sync()
   .then(() => {
