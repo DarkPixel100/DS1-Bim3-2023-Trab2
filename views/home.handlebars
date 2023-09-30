@@ -13,42 +13,76 @@
 </head>
 
 <body>
-    <header style="background: rgb(10, 13, 21); text-align: center;">
+    <header style="background: rgb(10, 13, 21); text-align: center; position: relative;">
         <h1 style="color: rgb(237, 247, 255);">Biblioteca!</h1>
-        <form action="/logout" method="post">
+        <form action="/logout" method="post" style="position: absolute; right: 2rem;">
             <button type="submit" class="btn btn-primary">Logout</button>
         </form>
     </header>
-    <main>
-        <h2>Alugue livros!</h2>
-        <div class="table-responsive">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">Título</th>
-                        <th scope="col">Autores</th>
-                        <th scope="col">Ano de Publi.</th>
-                        <th scope="col">Editora</th>
-                        <th scope="col">Quantidade</th>
-                        <th scope="col"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {{#each Livros}}
-                    <tr class="livro">
-                        <td scope="row">{{ titulo }}</td>
-                        <td scope="row">{{ autores }}</td>
-                        <td scope="row">{{ ano }}</td>
-                        <td scope="row">{{ editora }}</td>
-                        <td scope="row">{{ qtde }}</td>
-                        {{#if qtde}}<td scope="row"><button type="submit" name="livroID" value="{{ id }}">Alugar</button>
-                        </td>{{/if}}
-                    </tr>
-                    {{/each}}
-                </tbody>
-            </table>
-        </div>
-
+    <main style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+        <section id="personal">
+            <h2>Meus livros:</h2>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Título</th>
+                            <th scope="col">Autores</th>
+                            <th scope="col">Ano de Publi.</th>
+                            <th scope="col">Editora</th>
+                            <th scope="col" colspan="2">Quantidade</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each searchLivros}}
+                        <tr class="livro">
+                            <td scope="row">{{ titulo }}</td>
+                            <td scope="row">{{ autores }}</td>
+                            <td scope="row">{{ ano }}</td>
+                            <td scope="row">{{ editora }}</td>
+                            <td scope="row">{{ qtde }}</td>
+                            {{#if qtde}}<td scope="row"><button type="submit" name="livroID"
+                                    value="{{ id }}">Alugar</button>
+                            </td>{{/if}}
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        <section id="general">
+            <div style="display: flex; gap: 1rem; align-items: center;">
+                <h2>Procurar:</h2>
+                <form action="/search" method="POST">
+                    <input type="search" name="search" placeholder="Pesquise por título ou ano de publi." size="35">
+                </form>
+            </div>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Título</th>
+                            <th scope="col">Autores</th>
+                            <th scope="col">Ano de Publi.</th>
+                            <th scope="col" colspan="2">Editora</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each meusLivros}}
+                        <tr class="livro">
+                            <td scope="row">{{ titulo }}</td>
+                            <td scope="row">{{ autores }}</td>
+                            <td scope="row">{{ ano }}</td>
+                            <td scope="row">{{ editora }}</td>
+                            {{#if qtde}}<td scope="row"><button type="submit" name="livroID"
+                                    value="{{ id }}">Alugar</button>
+                            </td>{{/if}}
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </section>
     </main>
 </body>
 

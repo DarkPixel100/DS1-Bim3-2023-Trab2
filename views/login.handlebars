@@ -13,12 +13,14 @@
 </head>
 
 <body>
-    <header style="background: rgb(10, 13, 21); text-align: center;">
+    <header style="background: rgb(10, 13, 21); text-align: center; position: relative;">
         <h1 style="color: rgb(237, 247, 255);">Biblioteca!</h1>
     </header>
     <main>
+        {{#if reqFlash.noAuth }}<span>{{ reqFlash.noAuth }}</span>{{/if }}
         <h2>Login:</h2>
-        <form action="/login" method="POST">
+        {{#if reqFlash.errAuth }}<span style="color: red;" class="col-md-4">{{ reqFlash.errAuth }}</span>{{/if }}
+        <form action="/login" method="POST" autocomplete="off">
             <div class="col-md-4">
                 <label for="" class="form-label">Email</label>
                 <input type="email" class="form-control" name="email" id="email" aria-describedby="emailField" required>

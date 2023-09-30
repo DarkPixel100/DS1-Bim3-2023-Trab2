@@ -3,21 +3,22 @@ const app = express();
 const helpers = require("./helpers/helpers");
 const path = require("path");
 const bodyParser = require("body-parser");
-const flash = require("connect-flash");
 const session = require("express-session");
 const SessionStore = require("express-session-sequelize")(session.Store);
+const flash = require("req-flash");
 const appRoutes = require("./routes/approutes");
 const { sequelize, Sequelize } = require("./config/database");
-
-app.use(flash());
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+// session configuration
+// session store
 const sequelizeSessionStore = new SessionStore({
   db: sequelize,
 });
 
+// cookie
 app.set("trust proxy", 1);
 app.use(
   session({
@@ -28,6 +29,9 @@ app.use(
     cookie: { secure: "auto", maxAge: 300000 },
   })
 );
+
+// flash configuration
+app.use(flash());
 
 // handlebars configuration
 const handlebars = require("express-handlebars");

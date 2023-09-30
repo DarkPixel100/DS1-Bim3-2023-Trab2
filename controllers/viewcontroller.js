@@ -1,15 +1,27 @@
-const { render } = require("express/lib/response");
-const { sequelize, Sequelize } = require("../config/database");
-
 exports.showCadastro = (req, res) => {
-  res.render("cadastro", { layout: false });
+  res.render("cadastro", {
+    layout: false,
+    reqFlash: { errAuth: req.flash("regError") },
+  });
 };
 
 exports.showLogin = (req, res) => {
-  res.render("login", { layout: false });
+  res.render("login", {
+    layout: false,
+    reqFlash: {
+      noAuth: req.flash("authNecessary"),
+      errAuth: req.flash("loginError"),
+    },
+  });
 };
 
 exports.showHome = (req, res) => {
   if (req.session && req.session.user) res.render("home", { layout: false });
-  else res.redirect("/login");
+  else {
+    req.flash(
+      "authNecessary",
+      "Você precisa fazer login para acessar essa página!"
+    );
+    res.redirect("/login");
+  }
 };

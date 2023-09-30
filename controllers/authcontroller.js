@@ -1,4 +1,3 @@
-const { render } = require("express/lib/response");
 const { sequelize, Sequelize } = require("../config/database");
 
 const usuarioModel = require("../models/usuarios.js")(sequelize, Sequelize);
@@ -16,7 +15,7 @@ exports.criarUsuario = async (req, res) => {
       res.redirect("/login");
     })
     .catch((err) => {
-      console.log("Error" + err);
+      req.flash("regError", err);
     });
 };
 
@@ -29,10 +28,11 @@ exports.attemptLogin = (req, res, next) => {
     .findOne({ where: { email: formData.email } })
     .then(async function (user) {
       if (!user) {
-        console.log("Email incorreto!");
+        req.flash("loginError", "Email ou senha incorreto(s)");
         res.redirect("/login");
+        // next();
       } else if (!(await user.validarSenha(formData.password))) {
-        console.log("Senha incorreta!");
+        req.flash("loginError", "Email ou senha incorreto(s)");
         res.redirect("/login");
         next();
       } else {

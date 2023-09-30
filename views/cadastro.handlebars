@@ -13,12 +13,13 @@
 </head>
 
 <body>
-    <header style="background: rgb(10, 13, 21); text-align: center;">
+    <header style="background: rgb(10, 13, 21); text-align: center; position: relative;">
         <h1 style="color: rgb(237, 247, 255);">Biblioteca!</h1>
     </header>
     <main>
         <h2>Cadastro:</h2>
-        <form action="/cadastro" method="POST">
+        {{#if reqFlash.errAuth }}<span style="color: red;" class="col-md-4">{{ reqFlash.errAuth }}</span>{{/if }}
+        <form action="/cadastro" method="POST" autocomplete="off">
             <div class="col-md-4">
                 <label for="nome" class="form-label">Nome</label>
                 <input type="text" class="form-control" name="nome" id="nome" placeholder="João da Silva" required>
@@ -33,6 +34,7 @@
                 <input type="password" class="form-control" name="password" id="password" placeholder="@BcdeFg_Hi">
             </div>
             <button type="submit" class="btn btn-primary ml-3">Cadastrar</button>
+            <a href="/login" class="col-md-4">Já tenho uma conta</a>
         </form>
     </main>
 </body>
