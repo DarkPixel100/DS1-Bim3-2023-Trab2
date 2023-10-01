@@ -27,12 +27,12 @@
             <div class="col-md-4">
                 <label for="" class="form-label">Email</label>
                 <input type="email" class="form-control" name="email" id="email" aria-describedby="emailField"
-                    placeholder="abc@mail.com">
+                    placeholder="abc@mail.com" required>
             </div>
             <div class="col-md-4">
                 <label for="password" class="form-label">Senha</label>
-                <input type="password" class="form-control" name="password" id="password" placeholder="@BcdeFg_Hi">
-                <small id="helpId" class="text-muted">A senha deve ter: 1 letra maiúscula, 1 símbolo, ao menos 8 caracteres.</small>
+                <input type="password" class="form-control" name="password" id="password" placeholder="@BcdeFg_Hi" pattern="^(?=.*[A-Z]).{8,}$" title="A senha deve ter: 1 letra maiúscula e ao menos 8 caracteres." required>
+                <small id="helpId" class="text-muted">A senha deve ter: 1 letra maiúscula e ao menos 8 caracteres.</small>
             </div>
             <button type="submit" class="btn btn-primary ml-3">Cadastrar</button>
             <a href="/login" class="col-md-4">Já tenho uma conta</a>
