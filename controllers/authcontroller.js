@@ -2,7 +2,15 @@ const { sequelize, Sequelize } = require("../config/database");
 
 const usuarioModel = require("../config/associations").usuario;
 
+const { validationResult } = require("express-validator");
+
 exports.criarUsuario = async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    req.flash("formError", { errors: errors.array() });
+    res.send(400, req.flash("formError"));
+  }
+
   const userInfo = {
     nome: req.body.nome,
     email: req.body.email,
@@ -20,6 +28,12 @@ exports.criarUsuario = async (req, res) => {
 };
 
 exports.attemptLogin = (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    req.flash("formError", { errors: errors.array() });
+    res.send(400, req.flash("formError"));
+  }
+  
   formData = {
     email: req.body.email,
     password: req.body.password,

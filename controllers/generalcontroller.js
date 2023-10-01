@@ -4,7 +4,15 @@ const usuarioModel = require("../config/associations").usuario;
 const emprestimoModel = require("../config/associations").emprestimo;
 const livroModel = require("../config/associations").livro;
 
+const { validationResult } = require("express-validator");
+
 exports.addLivro = (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    req.flash("formError", { errors: errors.array() });
+    res.send(400, req.flash("formError"));
+  }
+
   const livro = req.body;
   livroModel
     .create(livro)
@@ -98,12 +106,26 @@ exports.deletarLivro = (req, res) => {
     });
 };
 
-exports.deletarUser = (req, res) => {
+exports.deletarUser = async (req, res) => {
+  const emprestimos = await emprestimoModel.findAll({
+    where: { usuarioId: req.body.userID },
+  });
+  emprestimos.forEach(async (emprestimo) => {
+    const qtde = (
+      await livroModel.findOne({ where: { id: emprestimo.livroId } })
+    ).quantidade;
+    livroModel.update(
+      { quantidade: qtde + 1 },
+      { where: { id: emprestimo.livroId } }
+    );
+  });
+
   usuarioModel
-    .destroy({ where: { id: req.body.usuarioId } })
+    .destroy({ where: { id: req.body.userID } })
     .then((data) => {
       req.flash("dataRegister", "Data deleted:" + data);
-      res.redirect("/admin");
+      if (req.session.user.id == req.body.userID) res.redirect("/logout");
+      else res.redirect("/admin");
     })
     .catch((err) => {
       req.flash("addError", err);
