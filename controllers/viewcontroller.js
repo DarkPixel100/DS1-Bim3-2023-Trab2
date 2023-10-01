@@ -1,3 +1,4 @@
+const { livro } = require("../config/associations");
 const { sequelize, Sequelize } = require("../config/database");
 
 const usuarioModel = require("../config/associations").usuario;
@@ -27,6 +28,7 @@ const searchResults = async (req, res) => {
       ],
     },
   });
+
   return {
     admin: isAdmin,
     searchLivros: searchLivros,
@@ -69,7 +71,7 @@ exports.showHome = async (req, res) => {
       );
       livrosResult.count++;
     }
-    results = await searchResults(req, res);
+    const results = await searchResults(req, res);
     res.render("home", {
       layout: false,
       user: req.session.user,
@@ -87,28 +89,30 @@ exports.showHome = async (req, res) => {
 };
 
 exports.showAdmin = async (req, res) => {
-  results = await searchResults(req, res);
-  if (req.session && req.session.user && results.admin) {
-    const users = await usuarioModel.findAll();
+  if (req.session && req.session.user) {
+    const results = await searchResults(req, res);
+    if (results.admin) {
+      const users = await usuarioModel.findAll();
 
-    res.render("admin", {
-      layout: false,
-      user: req.session.user,
-      admin: results.admin,
-      searchLivros: results.searchLivros,
-      usuarios: users,
-    });
-  } else if (!req.session.user) {
+      res.render("admin", {
+        layout: false,
+        user: req.session.user,
+        admin: results.admin,
+        searchLivros: results.searchLivros,
+        usuarios: users,
+      });
+    } else {
+      req.flash(
+        "authForbidden",
+        "Você não tem permissão para acessar essa página!"
+      );
+      res.send(403, req.flash("authForbidden"));
+    }
+  } else {
     req.flash(
       "authNecessary",
       "Você precisa fazer login para acessar essa página!"
     );
     res.redirect("/login");
-  } else {
-    req.flash(
-      "authForbidden",
-      "Você não tem permissão para acessar essa página!"
-    );
-    res.send(403, req.flash("authForbidden"));
   }
 };
