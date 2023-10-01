@@ -5,7 +5,6 @@ const helpers = {
     let result = true;
     if (qtde > 0) {
       arr.forEach((livro) => {
-        console.log(livro.dataValues.id == id);
         if (livro.dataValues.id == id) result = false;
       });
       if (result) return options.fn(this);
