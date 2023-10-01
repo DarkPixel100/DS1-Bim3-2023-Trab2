@@ -17,7 +17,7 @@
         <h3>Conectado como: {{ user.nome }}</h3>
         <h1>Biblioteca!</h1>
         <nav>
-            {{#if admin}}<a href="/admin"><button class="btn btn-primary">Admin</button></a>{{/if}}
+            <a href="/"><button class="btn btn-primary">Home</button></a>
             <form action="/logout" method="POST">
                 <button type="submit" class="btn btn-primary">Logout</button>
             </form>
@@ -25,43 +25,33 @@
     </header>
     <main>
         <section id="personal">
-            <h2>Meus livros:</h2>
+            <h2>Usuários:</h2>
             <div class="table-responsive">
                 <table class="table">
                     <thead>
                         <tr>
-                            <th scope="col">Título</th>
-                            <th scope="col">Autores</th>
-                            <th scope="col">Ano de Publi.</th>
-                            <th scope="col">Editora</th>
-                            <th scope="col">Quantidade</th>
+                            <th scope="col">ID</th>
+                            <th scope="col">Nome</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Data de cadastro</th>
                             <th scope="col"></th>
                         </tr>
                     </thead>
                     <tbody>
-                        {{#if meusLivros.count}}
-                        {{#each meusLivros.rows}}
+                        {{#each usuarios}}
                         <tr class="livro">
-                            <td scope="row">{{ titulo }}</td>
-                            <td scope="row">{{ autores }}</td>
-                            <td scope="row">{{ ano }}</td>
-                            <td scope="row">{{ editora }}</td>
-                            <td scope="row">{{ quantidade }}</td>
+                            <td scope="row">{{ id }}</td>
+                            <td scope="row">{{ nome }}</td>
+                            <td scope="row">{{ email }}</td>
+                            <td scope="row">{{ createdAt }}</td>
                             <td scope="row">
-                                <form action="/devolverLivro" method="POST">
-                                    <button class="btn btn-warning" type="submit" name="livroID"
-                                        value="{{ id }}">Devolver</button>
+                                <form action="/deletarUser" method="POST">
+                                    <button class="btn btn-danger" type="submit" name="userID"
+                                        value="{{ id }}">Deletar</button>
                                 </form>
                             </td>
                         </tr>
                         {{/each}}
-                        {{else}}
-                        <tr>
-                            <td colspan="5">
-                                <span><b>Sem livros disponíveis.</b></span>
-                            </td>
-                        </tr>
-                        {{/if}}
                     </tbody>
                 </table>
             </div>
@@ -74,9 +64,6 @@
                         placeholder="Pesquise por título ou ano de publi." size="35">
                     <button type="submit" class="btn btn-primary">Pesquisar</button>
                 </form>
-                <button id="addLivro" class="btn btn-primary" onclick="
-                document.getElementById('popup').style.display = 'flex';
-                ">Add Livro</button>
             </div>
             <div class="table-responsive">
                 <table class="table">
@@ -99,14 +86,12 @@
                             <td scope="row">{{ ano }}</td>
                             <td scope="row">{{ editora }}</td>
                             <td scope="row">{{ quantidade }}</td>
-                            {{#if quantidade}}
                             <td scope="row">
-                                <form action="/alugarLivro" method="POST">
-                                    <button class="btn btn-warning" type="submit" name="livroID"
-                                        value={{ id }}>Alugar</button>
+                                <form action="/deletarLivro" method="POST">
+                                    <button class="btn btn-danger" type="submit" name="livroID"
+                                        value="{{ id }}">Deletar</button>
                                 </form>
                             </td>
-                            {{/if}}
                         </tr>
                         {{/each}}
                         {{else}}
@@ -121,34 +106,6 @@
             </div>
         </section>
     </main>
-    <div id="popup">
-        <form action="/addLivro" method="POST" autocomplete="off">
-            <div class="mb-3">
-                <label for="titulo" class="form-label">Título:</label>
-                <input type="text" class="form-control" name="titulo" id="titulo" placeholder="Dom Casmurro">
-            </div>
-            <div class="mb-3">
-                <label for="autores" class="form-label">Autores:</label>
-                <input type="text" class="form-control" name="autores" id="autores" placeholder="Machado de Assis">
-            </div>
-            <div class="mb-3">
-                <label for="ano" class="form-label">Ano de publi.:</label>
-                <input type="text" class="form-control" name="ano" id="ano" placeholder="1899">
-            </div>
-            <div class="mb-3">
-                <label for="editora" class="form-label">Editora:</label>
-                <input type="text" class="form-control" name="editora" id="editora" placeholder="Livraria Garnier">
-            </div>
-            <div class="mb-3">
-                <label for="quantidade" class="form-label">Quantidade:</label>
-                <input type="number" class="form-control" name="quantidade" id="quantidade" placeholder="5" step="1">
-            </div>
-            <button type="submit" class="btn btn-primary">Adicionar</button>
-            <button type="button" class="btn btn-primary" onclick="
-            document.getElementById('popup').style.display = 'none';
-            ">Cancelar</button>
-        </form>
-    </div>
 </body>
 
 </html>
