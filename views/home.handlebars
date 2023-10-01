@@ -18,9 +18,7 @@
         <h1>Biblioteca!</h1>
         <nav>
             {{#if admin}}<a href="/admin"><button class="btn btn-primary">Admin</button></a>{{/if}}
-            <form action="/logout" method="POST">
-                <button type="submit" class="btn btn-primary">Logout</button>
-            </form>
+            <a href="/logout"><button class="btn btn-primary">Logout</button></a>
         </nav>
     </header>
     <main>
@@ -99,14 +97,14 @@
                             <td scope="row">{{ ano }}</td>
                             <td scope="row">{{ editora }}</td>
                             <td scope="row">{{ quantidade }}</td>
-                            {{#if quantidade}}
+                            {{#ifAlugavel ../meusLivros.rows id quantidade}}
                             <td scope="row">
                                 <form action="/alugarLivro" method="POST">
-                                    <button class="btn btn-warning" type="submit" name="livroID"
-                                        value={{ id }}>Alugar</button>
+                                    <button class="btn btn-warning" type="submit" name="livroID" value={{ ../id
+                                        }}>Alugar</button>
                                 </form>
                             </td>
-                            {{/if}}
+                            {{/ifAlugavel}}
                         </tr>
                         {{/each}}
                         {{else}}
@@ -125,23 +123,26 @@
         <form action="/addLivro" method="POST" autocomplete="off">
             <div class="mb-3">
                 <label for="titulo" class="form-label">Título:</label>
-                <input type="text" class="form-control" name="titulo" id="titulo" placeholder="Dom Casmurro">
+                <input type="text" class="form-control" name="titulo" id="titulo" placeholder="Dom Casmurro" required>
             </div>
             <div class="mb-3">
                 <label for="autores" class="form-label">Autores:</label>
-                <input type="text" class="form-control" name="autores" id="autores" placeholder="Machado de Assis">
+                <input type="text" class="form-control" name="autores" id="autores" placeholder="Machado de Assis"
+                    required>
             </div>
             <div class="mb-3">
                 <label for="ano" class="form-label">Ano de publi.:</label>
-                <input type="text" class="form-control" name="ano" id="ano" placeholder="1899">
+                <input type="number" class="form-control" name="ano" id="ano" placeholder="1899" step="1" required>
             </div>
             <div class="mb-3">
                 <label for="editora" class="form-label">Editora:</label>
-                <input type="text" class="form-control" name="editora" id="editora" placeholder="Livraria Garnier">
+                <input type="text" class="form-control" name="editora" id="editora" placeholder="Livraria Garnier"
+                    required>
             </div>
             <div class="mb-3">
                 <label for="quantidade" class="form-label">Quantidade:</label>
-                <input type="number" class="form-control" name="quantidade" id="quantidade" placeholder="5" step="1">
+                <input type="number" class="form-control" name="quantidade" id="quantidade" placeholder="5" step="1"
+                    required>
             </div>
             <button type="submit" class="btn btn-primary">Adicionar</button>
             <button type="button" class="btn btn-primary" onclick="
