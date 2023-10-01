@@ -1,0 +1,100 @@
+* {
+    /* overflow-y: hidden; */
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    position: relative;
+    justify-self: start;
+    display: flex;
+    padding-inline: 1rem;
+    padding-block: .2rem;
+    justify-content: space-between;
+    align-items: center;
+    background: rgb(10, 13, 21);
+    color: rgb(237, 247, 255);
+}
+
+header > nav {
+    display: flex;
+    gap: .25rem;
+}
+
+header>h1 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+main {
+    height: 100%;
+    margin: .5rem;
+    display: flex;
+    /* grid-template-columns: 1fr 1fr; */
+    gap: .5rem;
+}
+
+section {
+    width: 50%;
+    display: block;
+    max-height: 100%;
+    padding: .25rem;
+    background-color: rgb(198, 202, 204);
+    border-radius: 10px;
+    overflow: hidden;
+    resize: both;
+}
+
+#sectionHeader {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+#sectionHeader>form {
+    display: flex;
+    gap: .5rem;
+}
+
+.table-responsive {
+    height: 100%;
+    overflow-y: scroll;
+}
+
+.table-responsive > table {
+    margin-bottom: 2.5rem;
+}
+
+#popup {
+    height: 100%;
+    width: 100%;
+    display: none;
+    position: absolute;
+    z-index: 1;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+#popup>form {
+    background-color: white;
+    border-radius: 10px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: .25rem;
+}
+
+.table td {
+    vertical-align: middle;
+}

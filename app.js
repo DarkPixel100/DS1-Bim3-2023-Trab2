@@ -12,6 +12,8 @@ const { sequelize, Sequelize } = require("./config/database");
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+app.use(express.static("public"));
+
 // session configuration
 // session store
 const sequelizeSessionStore = new SessionStore({
@@ -26,7 +28,7 @@ app.use(
     store: sequelizeSessionStore,
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: "auto", maxAge: 300000 },
+    cookie: { secure: "auto", maxAge: 600000 },
   })
 );
 
