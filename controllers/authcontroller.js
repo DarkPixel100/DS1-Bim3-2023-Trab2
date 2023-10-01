@@ -1,6 +1,6 @@
 const { sequelize, Sequelize } = require("../config/database");
 
-const usuarioModel = require("../models/usuarios.js")(sequelize, Sequelize);
+const usuarioModel = require("../config/associations").usuario;
 
 exports.criarUsuario = async (req, res) => {
   const userInfo = {
@@ -11,7 +11,7 @@ exports.criarUsuario = async (req, res) => {
   usuarioModel
     .create(userInfo)
     .then((data) => {
-      console.log("Data saved");
+      req.flash("dataRegister", "Data saved:" + data);
       res.redirect("/login");
     })
     .catch((err) => {
@@ -54,7 +54,7 @@ exports.logout = (req, res) => {
       if (err) res.status(400).send("Falha no logout!");
       else {
         console.log("Logout realizado com sucesso!");
-        res.redirect("/");
+        res.redirect("/login");
       }
     });
   } else res.end();
