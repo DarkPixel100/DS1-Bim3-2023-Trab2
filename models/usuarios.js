@@ -28,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
     },
-    { timestamps: false },
+    { timestamps: true },
     { freezeTableName: true }
   );
   usuarios.prototype.validarSenha = function (password) {

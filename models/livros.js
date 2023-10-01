@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
       },
       ano: {
-        type: DataTypes.DATE,
+        type: DataTypes.INTEGER,
       },
       editora: {
         type: DataTypes.STRING,
@@ -27,6 +27,6 @@ module.exports = (sequelize, DataTypes) => {
     },
     { timestamps: false }
   );
-
+  
   return livros;
 };
