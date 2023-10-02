@@ -4,28 +4,20 @@ const helpers = require("./helpers/helpers");
 const path = require("path");
 const bodyParser = require("body-parser");
 const session = require("express-session");
-const SessionStore = require("express-session-sequelize")(session.Store);
 const flash = require("req-flash");
 const appRoutes = require("./routes/approutes");
-const { sequelize, Sequelize } = require("./config/database");
+const { sequelize } = require("./config/database");
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use(express.static("public"));
 
-// session configuration
-// session store
-const sequelizeSessionStore = new SessionStore({
-  db: sequelize,
-});
-
-// cookie
+// session configuration:
 app.set("trust proxy", 1);
 app.use(
   session({
     secret: "123",
-    store: sequelizeSessionStore,
     resave: false,
     saveUninitialized: true,
     cookie: { secure: "auto", maxAge: 600000 },
